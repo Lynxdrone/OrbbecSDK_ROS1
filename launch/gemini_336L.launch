@@ -13,15 +13,14 @@
     <!-- https://www.orbbec.com/docs/g330-use-depth-presets/ -->
     <arg name="device_preset" default="Default"/>
     <arg name="diagnostics_frequency" default="1.0"/>
-    <arg name="enable_laser" default="false"/>
+    <arg name="enable_laser" default="true"/>
     <arg name="laser_on_off_mode" default="0"/>
     <arg name="sync_mode" default="standalone"/>
 
-
-    <!-- Color camera parameters -->
-    <arg name="color_width" default="1280"/>
-    <arg name="color_height" default="800"/>
-    <arg name="color_fps" default="60"/>
+   <!-- Color camera parameters -->
+    <arg name="color_width" default="848"/>
+    <arg name="color_height" default="480"/>
+    <arg name="color_fps" default="30"/>
     <arg name="enable_color" default="true"/>
     <arg name="color_format" default="ANY"/>
     <!-- color rotation degree : 0, 90, 180, 270 -->
@@ -29,22 +28,32 @@
     <arg name="enable_color_auto_exposure" default="true"/>
     <!-- -1 means not set, other value bigger than 0, the value is the exposure time in ms-->
     <arg name="color_exposure" default="-1"/>
+    <!-- color ae roi-->
+    <arg name="color_ae_roi_top" default="-1"/>
+    <arg name="color_ae_roi_bottom" default="-1"/>
+    <arg name="color_ae_roi_left" default="-1"/>
+    <arg name="color_ae_roi_right" default="-1"/>
 
     <!-- Depth camera parameters -->
     <arg name="depth_width" default="848"/>
     <arg name="depth_height" default="480"/>
-    <arg name="depth_fps" default="60"/>
+    <arg name="depth_fps" default="30"/>
     <arg name="enable_depth" default="true"/>
     <arg name="depth_format" default="ANY"/>
     <arg name="depth_registration" default="true"/>
     <!-- depth rotation degree : 0, 90, 180, 270 -->
     <arg name="depth_rotation" default="0"/>
+    <!-- depth ae roi-->
+    <arg name="depth_ae_roi_top" default="-1"/>
+    <arg name="depth_ae_roi_bottom" default="-1"/>
+    <arg name="depth_ae_roi_left" default="-1"/>
+    <arg name="depth_ae_roi_right" default="-1"/>
 
     <!-- Left IR camera parameters -->
     <arg name="left_ir_width" default="848"/>
     <arg name="left_ir_height" default="480"/>
-    <arg name="left_ir_fps" default="60"/>
-    <arg name="enable_left_ir" default="true"/>
+    <arg name="left_ir_fps" default="30"/>
+    <arg name="enable_left_ir" default="false"/>
     <arg name="left_ir_format" default="ANY"/>
     <!-- left ir rotation degree : 0, 90, 180, 270 -->
     <arg name="left_ir_rotation" default="0"/>
@@ -52,8 +61,8 @@
     <!-- Right IR camera parameters -->
     <arg name="right_ir_width" default="848"/>
     <arg name="right_ir_height" default="480"/>
-    <arg name="right_ir_fps" default="60"/>
-    <arg name="enable_right_ir" default="true"/>
+    <arg name="right_ir_fps" default="30"/>
+    <arg name="enable_right_ir" default="false"/>
     <arg name="right_ir_format" default="ANY"/>
     <!-- right ir rotation degree : 0, 90, 180, 270 -->
     <arg name="right_ir_rotation" default="0"/>
@@ -67,7 +76,7 @@
 
     <!-- Point cloud parameters -->
     <arg name="enable_point_cloud" default="false"/>
-    <arg name="enable_colored_point_cloud" default="true"/>
+    <arg name="enable_colored_point_cloud" default="false"/>
     <arg name="ordered_pc" default="false"/>
     <!-- Gemini 335/335L only support SW align mode, Please DO NOT change it -->
     <arg name="align_mode" default="SW"/>
@@ -114,7 +123,7 @@
 
     <arg name="retry_on_usb3_detection_failure" default="true"/>
     <arg name="enable_d2c_viewer" default="false"/>
-    <arg name="laser_energy_level" default="-1"/>
+    <arg name="laser_energy_level" default="3"/>
     <arg name="enable_ldp" default="true"/>
     <arg name="enable_heartbeat" default="false"/>
     <arg name="enable_hardware_reset" default="true"/>
@@ -226,5 +235,8 @@
             <remap from="imu/data" to="/camera/imu"/>
         </node>
     </group>
+    <node pkg="rover_nav" type="image_republisher.py" name="image_republisher" output="screen">
+            <param name="input_raw" value="/camera/color"/>
+    </node>    
     <node pkg="image_transport" type="republish" name="compressed_rgb_republish" args="raw in:=/camera/color/image_raw compressed out:=/camera/color/image_raw" output="screen" respawn="true"/>
 </launch>
