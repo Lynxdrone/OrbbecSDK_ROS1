@@ -18,9 +18,11 @@
     <arg name="sync_mode" default="standalone"/>
 
    <!-- Color camera parameters -->
+    <!-- <arg name="color_width" default="640"/>
+    <arg name="color_height" default="480"/> -->
     <arg name="color_width" default="848"/>
     <arg name="color_height" default="480"/>
-    <arg name="color_fps" default="30"/>
+    <arg name="color_fps" default="60"/>
     <arg name="enable_color" default="true"/>
     <arg name="color_format" default="ANY"/>
     <!-- color rotation degree : 0, 90, 180, 270 -->
@@ -35,7 +37,9 @@
     <arg name="color_ae_roi_right" default="-1"/>
 
     <!-- Depth camera parameters -->
-    <arg name="depth_width" default="848"/>
+    <!-- <arg name="depth_width" default="640"/>
+    <arg name="depth_height" default="480"/> -->
+     <arg name="depth_width" default="848"/>
     <arg name="depth_height" default="480"/>
     <arg name="depth_fps" default="30"/>
     <arg name="enable_depth" default="false"/>
@@ -122,8 +126,8 @@
     <arg name="device_num" default="1"/>
 
     <arg name="retry_on_usb3_detection_failure" default="true"/>
-    <arg name="enable_d2c_viewer" default="false"/>
-    <arg name="laser_energy_level" default="3"/>
+    <arg name="enable_d2c_viewer" default="true"/>
+    <arg name="laser_energy_level" default="-1"/>
     <arg name="enable_ldp" default="true"/>
     <arg name="enable_heartbeat" default="false"/>
     <arg name="enable_hardware_reset" default="true"/>
